@@ -11,13 +11,6 @@ export function ItemTemplatePage() {
     );
   }
 
-  const id = Number(id);
-  if (isNaN(id)) {
-    return (
-      <p className="text-error">Invalid ID: {id}</p>
-    );
-  }
-
   return (
     <div className="flex flex-col gap-6">
       <ItemTemplatePageContent id={id} />
