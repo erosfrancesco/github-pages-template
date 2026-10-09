@@ -1,11 +1,13 @@
 import { useCallback, useEffect, useState } from "react";
 
-const STORAGE_KEY = "cardtrader_favourites";
+// EXAMPLE HOOK FOR LOCAL STORAGE MANAGEMENT OF FAVOURITES
+
+const STORAGE_KEY_TEMPLATE = "your_favourites";
 
 export function useFavourites() {
   const [favourites, setFavourites] = useState<number[]>(() => {
     try {
-      const stored = localStorage.getItem(STORAGE_KEY);
+      const stored = localStorage.getItem(STORAGE_KEY_TEMPLATE);
       return stored ? JSON.parse(stored) : [];
     } catch {
       return [];
@@ -14,9 +16,9 @@ export function useFavourites() {
 
   useEffect(() => {
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(favourites));
+      localStorage.setItem(STORAGE_KEY_TEMPLATE, JSON.stringify(favourites));
     } catch {
-      /* quota exceeded / unavailable — ignore silently */
+      // TODO: - Handle localStorage errors (e.g., quota exceeded)
     }
   }, [favourites]);
 

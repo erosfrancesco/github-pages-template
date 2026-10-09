@@ -1,9 +1,18 @@
 import { clsx } from "clsx";
 import { NavLink, Link } from "react-router-dom";
 
+//
+function TemplateAppLogo() {
+  return <>
+    <span className="text-2xl" aria-hidden="true">🦴</span>
+    <span className="font-semibold tracking-tight">Joke Norris</span>
+  </>
+}
+//
+
 const navItems = [
-  { to: "/search", label: "Search" },
-  { to: "/my_favourites", label: "Favourites" },
+  { to: "/", label: "Random" },
+  { to: "/favourites", label: "Favourites" },
 ];
 
 export function HeaderBar() {
@@ -15,8 +24,7 @@ export function HeaderBar() {
           className="flex items-center gap-2 md-headline text-primary hover:text-primary/80 transition-colors cursor-pointer"
           aria-label="Go to home"
         >
-          <span className="text-2xl" aria-hidden="true">🦴</span>
-          <span className="font-semibold tracking-tight">CardTrader Zero Tracker</span>
+          <TemplateAppLogo />
         </Link>
         <nav className="flex gap-1">
           {navItems.map(({ to, label }) => (

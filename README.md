@@ -1,34 +1,35 @@
-# Card Hound 🦴
+# GitHub Pages Template
 
-**Live Demo:** https://erosfrancesco.github.io/card-hound/
+**Live Demo:** https://erosfrancesco.github.io/github-pages-template/
 
-A React + Vite app that tracks live **CardTrader Zero** marketplace listings for Magic: The Gathering cards.
+A React + Vite app with TailwindCSS
 
 ## Features
 
-- Fetches live marketplace products by card blueprint ID
-- Filters to CardTrader Zero listings only (`can_sell_via_hub`)
-- Sortable by price (low → high / high → low)
-- Refresh button for on-demand refetch
-- Aggregated stats: lowest price, highest price, total available quantity
-- Color-coded card conditions (Mint / Near Mint / Lightly Played / Moderately Played / Heavily Played / Damaged)
-- Language and foil badges per listing
-- Image lookup by blueprint ID with CardTrader image CDN
-- **Favourites** — save cards from search, view with image, name, and lowest price
-- Click any favourite card to view full price list
-- Remove cards from favourites with one click
+- Simple API Call
+- App secrets and tokens for API security
+- Glow Theme
 
 ## Routing
 
-The app is a single-page app using [React Router](https://reactrouter.com/) v7. Available routes:
+The app is a single-page app using [React Router](https://reactrouter.com/) v7.
 
-| Path                    | Page                 | Description                                                                   |
-| ----------------------- | -------------------- | ----------------------------------------------------------------------------- |
-| `/`                     | (redirect)           | Redirects to `/my_favourites`                                                 |
-| `/search`               | `SearchPage`         | CardTrader image lookup widget (enter a blueprint ID)                         |
-| `/search/:blueprintId`  | `SearchPage`         | Deep-linkable lookup with an ID in the URL                                    |
-| `/product/:blueprintId` | `ProductPage`        | Shows marketplace listings for a given blueprint ID via `CardPriceListWidget` |
-| `/my_favourites`        | `FavouriteCardsPage` | Saved cards with image, name, first/lowest price, expansion badge             |
+## Deploy to GitHub Pages
+
+The project is configured for GitHub Pages deployment
+
+### Automatic Deployment (GitHub Actions)
+
+Push to `main` branch triggers the workflow in `.github/workflows/deploy.yml`:
+
+1. Builds the app with tokens from repository secrets !important!
+2. Deploys to GitHub Pages
+
+**Setup:**
+
+1. Go to repository Settings → Secrets and variables → Actions
+2. Add repository secrets and tokens
+3. Enable GitHub Pages: Settings → Pages → Source: "GitHub Actions"
 
 ## Getting Started
 
@@ -38,13 +39,11 @@ The app is a single-page app using [React Router](https://reactrouter.com/) v7. 
    npm install
    ```
 
-2. Create your API token file (copy the example and fill in your token):
+2. Create your API token and set in the .env file (copy the example and fill in your token):
 
    ```bash
    cp .env.example .env
    ```
-
-   Then set `VITE_CARDTRADER_API_TOKEN` to your CardTrader API token in `.env`.
 
 3. Start the dev server:
 
@@ -68,23 +67,6 @@ npm run build
 
 The production bundle is output to the `dist/` directory.
 
-## Deploy to GitHub Pages
-
-The project is configured for GitHub Pages deployment at `https://erosfrancesco.github.io/card-hound/`.
-
-### Automatic Deployment (GitHub Actions)
-
-Push to `main` branch triggers the workflow in `.github/workflows/deploy.yml`:
-
-1. Builds the app with `VITE_CARDTRADER_API_TOKEN` from repository secrets
-2. Deploys to GitHub Pages
-
-**Setup:**
-
-1. Go to repository Settings → Secrets and variables → Actions
-2. Add repository secret: `VITE_CARDTRADER_API_TOKEN` with your CardTrader API token
-3. Enable GitHub Pages: Settings → Pages → Source: "GitHub Actions"
-
 ### Manual Deployment
 
 ```bash
@@ -93,17 +75,7 @@ npm run deploy
 
 This runs `npm run build` then pushes the `dist/` folder to the `gh-pages` branch.
 
-> **Note:** The `vite.config.js` has `base: "/card-hound/"` for correct asset paths on GitHub Pages. If you fork/rename the repo, update this value to match your repository name.
-
-## Configuration
-
-| Variable                    | Required | Description                      |
-| --------------------------- | -------- | -------------------------------- |
-| `VITE_CARDTRADER_API_TOKEN` | Yes      | Your CardTrader API bearer token |
-
-## CardTrader Zero
-
-"CardTrader Zero" is CardTrader's own fulfillment network. Listings from sellers enrolled in it ship via CT's warehouse, giving buyers a lower-fee, faster experience. This app surfaces only those listings.
+> **Note:** On GitHub Actions, Vite reads the repository name automatically to set the GitHub Pages base path. Forks and renamed repositories therefore need no manual `base` update.
 
 ## Styling
 
@@ -119,4 +91,3 @@ The UI is built with [Tailwind CSS](https://tailwindcss.com/) v4 via `@tailwindc
 - [Vite](https://vitejs.dev/guide/)
 - [React](https://reactjs.org/)
 - [Tailwind CSS](https://tailwindcss.com/)
-- [CardTrader API](https://docs.cardtrader.com/)

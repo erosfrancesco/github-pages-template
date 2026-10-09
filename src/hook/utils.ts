@@ -1,15 +1,33 @@
-export const baseUrl = "https://api.cardtrader.com/api/v2/";
-export const apiToken = import.meta.env.VITE_CARDTRADER_API_TOKEN;
+import { useApiQuery } from "@tanstack/react-query";
+
+export const baseUrl = "https://api.chucknorris.io/";
+export const apiToken = import.meta.env.VITE_API_TOKEN_TEMPLATE;
+
 
 export const endpoints = {
-  blueprintFromName: `${baseUrl}cardtrader/blueprints`,
-  products: `${baseUrl}marketplace/products`,
-  blueprint: `${baseUrl}/blueprints/`,
+  random: `${baseUrl}jokes/random`,
+  byId: (id: string) => `${baseUrl}jokes/${id}`,
 };
 
-/** Resolve a relative CardTrader image URL to an absolute one. */
-export function resolveImageUrl(raw?: string): string {
-  if (!raw) return "";
-  if (/^https?:\/\//i.test(raw)) return raw;
-  return `${baseUrl.replace("/api/v2", "")}${raw.startsWith("/") ? raw : `/${raw}`}`;
+export const useAPIGet = ({ queryKey, endpoint = "" } = {}) => {
+  return useApiQuery({
+    queryKey,
+    queryFn: async () => {
+      const response = await fetch(endpoint, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${apiToken}`,
+          Accept: "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(
+          response
+        );
+      }
+
+      return response.json();
+    }
+  });
 }
